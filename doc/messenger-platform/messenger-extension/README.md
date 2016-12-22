@@ -1,50 +1,48 @@
-# Webview and Extensions
+#  Webview and Extensions
 
 Using the webview, you can control the display height of the in-app browser
 window. This allows you to build more custom experiences that still appear to
 be part of the Messenger thread.
 
-![](https://scontent-
-cdg2-1.xx.fbcdn.net/t39.2365-6/14235598_836379243130615_794043810_n.png)
+![](https://scontent.xx.fbcdn.net/t39.2365-6/14235598_836379243130615_794043810_n.png)
 
 Webviews can be shown in compact, tall and full sizes. Using partial-height
 webviews, make it feel like it's part of the thread. These are also useful if
 you want to render custom controls or have more control over how content is
 displayed.
 
-![](https://scontent-
-cdg2-1.xx.fbcdn.net/t39.2365-6/14235549_307513439610741_1331859866_n.png)
+![](https://scontent.xx.fbcdn.net/t39.2365-6/14235549_307513439610741_1331859866_n.png)
 
-### Messenger Extensions
+###  Messenger Extensions
 
 We've also added Messenger Extensions which enable your web page to integrate
 tightly with Messenger. Using the Messenger Extensions Javascript SDK, you can
 do the following:
 
-  * Get the user id associated with the thread
-  * Close the Webview
+  * Get the user id associated with the thread 
+  * Close the Webview 
 
 Extensions also supports integrated payments. The following payment
 functionality is supported:
 
-  * Open a native payment dialog to get a person's information and payment credentials
-  * Process a payment with Stripe
+  * Open a native payment dialog to get a person's information and payment credentials 
+  * Process a payment with Stripe 
 
-![](https://scontent-
-cdg2-1.xx.fbcdn.net/t39.2365-6/14235606_102210503572545_1424211441_n.png)
+![](https://scontent.xx.fbcdn.net/t39.2365-6/14235606_102210503572545_1424211441_n.png)
 
-Payment features are in beta. [Request access to our beta program for
-payments](https://www.facebook.com/messenger_platform/payments_requestaccess).
+Payment features are in beta. [ Request access to our beta program for
+payments ](https://www.facebook.com/messenger_platform/payments_requestaccess)
+.
 
 Messenger Extensions only work on iOS and Android. For messenger.com, see the
-[`fallback_url` parameter for URL buttons](/docs/messenger-platform/send-api-
-reference/url-button#fields).
+[ ` fallback_url ` parameter for URL buttons ](/docs/messenger-platform/send-
+api-reference/url-button#fields) .
 
-## Implementation
+##  Implementation
 
-The Button and Generic Template can open a Webview by adding a
-`webview_height_ratio` field with a [URL Button](/docs/messenger-
-platform/send-api-reference/url-button).
+The Button and Generic Template can open a Webview by adding a `
+webview_height_ratio ` field with a [ URL Button ](/docs/messenger-
+platform/send-api-reference/url-button) .
 
     
     
@@ -61,10 +59,10 @@ platform/send-api-reference/url-button).
             
     ... 
 
-See the [URL Button reference doc](/docs/messenger-platform/send-api-
+See the [ URL Button reference doc ](/docs/messenger-platform/send-api-
 reference/url-button) for field details.
 
-### Dialog Title
+###  Dialog Title
 
 The title of the HTML document will be used as the title of the dialog.
 
@@ -77,18 +75,18 @@ The title of the HTML document will be used as the title of the dialog.
        ...
     </html>
 
-__
+_ _
 
-## Messenger Extensions
+##  Messenger Extensions
 
 Messenger Extensions allows tight integration between Messenger and the page
 being opened in a Webview. With Extensions, you can get the person's user id
 and close the webview.
 
-### Whitelist Your Domain
+###  Whitelist Your Domain
 
-You must whitelist your domain for security reasons. Read the [reference
-doc](/docs/messenger-platform/thread-settings/domain-whitelisting) for more
+You must whitelist your domain for security reasons. Read the [ reference doc
+](/docs/messenger-platform/thread-settings/domain-whitelisting) for more
 details.
 
     
@@ -99,10 +97,10 @@ details.
       "domain_action_type": "add"
     }' "https://graph.facebook.com/v2.6/me/thread_settings?access_token=PAGE_ACCESS_TOKEN"
 
-### URL Button with Messenger Extensions
+###  URL Button with Messenger Extensions
 
-In order to enable Messenger Extensions with your URL Button, you must set
-`messenger_extensions` to `true`.
+In order to enable Messenger Extensions with your URL Button, you must set `
+messenger_extensions ` to ` true ` .
 
     
     
@@ -121,8 +119,8 @@ In order to enable Messenger Extensions with your URL Button, you must set
             
     ...        
 
-You may also use Webviews from the [Persistent Menu](/docs/messenger-
-platform/thread-settings/persistent-menu).
+You may also use Webviews from the [ Persistent Menu ](/docs/messenger-
+platform/thread-settings/persistent-menu) .
 
     
     
@@ -141,9 +139,9 @@ platform/thread-settings/persistent-menu).
     ...      
         
 
-### Messenger Extensions Javascript SDK
+###  Messenger Extensions Javascript SDK
 
-#### Load the JS SDK
+####  Load the JS SDK
 
 Add the Messenger Extensions Javascript SDK to the page being loaded in the
 webview.
@@ -160,9 +158,9 @@ webview.
     }(document, 'script', 'Messenger'));
     </script>      
 
-#### SDK Loaded
+####  SDK Loaded
 
-`window.extAsyncInit` will be called when the Messenger Extensions JS SDK is
+` window.extAsyncInit ` will be called when the Messenger Extensions JS SDK is
 done loading.
 
     
@@ -173,11 +171,11 @@ done loading.
       };
     </script>
 
-### Check Messenger Extensions is Supported
+###  Check Messenger Extensions is Supported
 
 Messenger Extensions only work on newer versions of Messenger iOS App and
-Messenger Android App. After SDK is loaded,
-`MessengerExtensions.isInExtension` can be used to check whether Messenger
+Messenger Android App. After SDK is loaded, `
+MessengerExtensions.isInExtension ` can be used to check whether Messenger
 Extensions is supported for current webview. It will return a boolean.
 
     
@@ -186,10 +184,11 @@ Extensions is supported for current webview. It will return a boolean.
         var isSupported = MessengerExtensions.isInExtension();    
     </script>
 
-### Get User IDs
+###  Get User IDs
 
-`MessengerExtensions.getUserID` will returned the page-scoped user id. You can
-use this to identify the person and personalize the Webview for the viewer.
+` MessengerExtensions.getUserID ` will returned the page-scoped user id. You
+can use this to identify the person and personalize the Webview for the
+viewer.
 
     
     
@@ -202,16 +201,16 @@ use this to identify the person and personalize the Webview for the viewer.
         });    
     </script>
 
-#### Params
+####  Params
 
-Param |  Description |  Type |  Required  
+Param  |  Description  |  Type  |  Required  
 ---|---|---|---  
   
 success callback
 
 |
 
-This function will be called if `getUserID` is successful.
+This function will be called if ` getUserID ` is successful.
 
 |
 
@@ -235,12 +234,12 @@ function
 
 Y  
   
-#### Result
+####  Result
 
-Field |  Description |  Type  
+Field  |  Description  |  Type  
 ---|---|---  
   
-`uids`
+` uids `
 
 |
 
@@ -250,12 +249,12 @@ Object containing user ids
 
 Object  
   
-#### `uids` fields
+####  ` uids ` fields
 
-Field |  Description |  Type  
+Field  |  Description  |  Type  
 ---|---|---  
   
-`psid`
+` psid `
 
 |
 
@@ -265,10 +264,10 @@ Page-scoped user ID
 
 Number  
   
-### Close Webview
+###  Close Webview
 
-`MessengerExtensions.requestCloseBrowser` will close the webview. You may want
-to do this after the transaction is completed.
+` MessengerExtensions.requestCloseBrowser ` will close the webview. You may
+want to do this after the transaction is completed.
 
     
     
@@ -280,16 +279,16 @@ to do this after the transaction is completed.
           });
     </script>
 
-#### Params
+####  Params
 
-Param |  Description |  Type |  Required  
+Param  |  Description  |  Type  |  Required  
 ---|---|---|---  
   
 success callback
 
 |
 
-This function will be called if `requestCloseBrowser` is successful.
+This function will be called if ` requestCloseBrowser ` is successful.
 
 |
 
@@ -313,19 +312,20 @@ function
 
 Y  
   
-__
+_ _
 
-## Payments
+##  Payments
 
-Payment features are in beta. [Request access to our beta program for
-payments](https://www.facebook.com/messenger_platform/payments_requestaccess).
+Payment features are in beta. [ Request access to our beta program for
+payments ](https://www.facebook.com/messenger_platform/payments_requestaccess)
+.
 
 With Messenger Extensions, you can integrate payments by doing the following:
 
-  1. Open a payment dialog to get shipping and payment information. This step also authorizes a payment. 
-  2. If you're using credit card tokenization, request authorized payment credentials. If you're using Stripe or Paypal, process the payment.
+  1. Open a payment dialog  to get shipping and payment information. This step also authorizes a payment. 
+  2. If you're using credit card tokenization,  request authorized payment credentials  . If you're using Stripe or Paypal,  process the payment  . 
 
-### Open Payment Dialog
+###  Open Payment Dialog
 
 On your checkout page, you should place a button in the payments section that
 calls this method. It will trigger a native dialog in Messenger allowing them
@@ -336,8 +336,7 @@ You should use the returned information to calculate shipping and taxes.
 Shipping and payment information should be displayed before they complete the
 purchase.
 
-![](https://scontent-
-cdg2-1.xx.fbcdn.net/t39.2365-6/14235596_298504120519333_146285064_n.png)
+![](https://scontent.xx.fbcdn.net/t39.2365-6/14235596_298504120519333_146285064_n.png)
 
     
     
@@ -353,16 +352,16 @@ cdg2-1.xx.fbcdn.net/t39.2365-6/14235596_298504120519333_146285064_n.png)
       );
     </script>       
 
-#### Params
+####  Params
 
-Param |  Description |  Type |  Required  
+Param  |  Description  |  Type  |  Required  
 ---|---|---|---  
   
 success callback
 
 |
 
-This function will be called if `requestPaymentCredentials` is successful.
+This function will be called if ` requestPaymentCredentials ` is successful.
 
 |
 
@@ -391,9 +390,9 @@ requested user info
 |
 
 Information requested from person that will render in the dialog. Valid
-values: `shipping_address`, `contact_name`, `contact_phone`, `contact_email`.
-You can config these based on your product need. If not specified, all the
-fields will be rendered in the checkout flow.
+values: ` shipping_address ` , ` contact_name ` , ` contact_phone ` , `
+contact_email ` . You can config these based on your product need. If not
+specified, all the fields will be rendered in the checkout flow.
 
 |
 
@@ -403,9 +402,9 @@ Array
 
 Y  
   
-#### Result
+####  Result
 
-Field |  Description |  Type  
+Field  |  Description  |  Type  
 ---|---|---  
   
 name
@@ -458,12 +457,12 @@ Person's shipping address
 
 Object  
   
-#### `shipping_address` fields
+####  ` shipping_address ` fields
 
-Field |  Description |  Type  
+Field  |  Description  |  Type  
 ---|---|---  
   
-`name`
+` name `
 
 |
 
@@ -473,7 +472,7 @@ Name on shipping address
 
 String  
   
-`street1`
+` street1 `
 
 |
 
@@ -483,7 +482,7 @@ Street address
 
 String  
   
-`city`
+` city `
 
 |
 
@@ -493,7 +492,7 @@ Shipping city
 
 String  
   
-`region`
+` region `
 
 |
 
@@ -503,7 +502,7 @@ Shipping state/region
 
 String  
   
-`postalCode`
+` postalCode `
 
 |
 
@@ -513,7 +512,7 @@ Shipping postal code
 
 String  
   
-`country`
+` country `
 
 |
 
@@ -523,7 +522,7 @@ Shipping country
 
 String  
   
-### Request Authorized Payment Credentials
+###  Request Authorized Payment Credentials
 
 If you're using credit card tokenization, use this method.
 
@@ -535,14 +534,13 @@ credentials to charge them.
 If the payment is a test payment, you will get a dummy tokenized card back
 with the following dummy information (card_number: 4111111111111111, cvv: 123,
 expiry month: 11, expiry year: 2020). Testing is available even if your
-page/app does not have payment permission. Refers to [How to Test
-Payment](/docs/messenger-platform/complete-guide/payments#test_payments) for
-details.
+page/app does not have payment permission. Refers to [ How to Test Payment
+](/docs/messenger-platform/complete-guide/payments#test_payments) for details.
 
-You must call `requestPaymentCredentials` before calling this method.
+You must call ` requestPaymentCredentials ` before calling this method.
 
-Consider sending a purchase confirmation into the thread. You may use the
-[Receipt Template](/docs/messenger-platform/send-api-reference/receipt-
+Consider sending a purchase confirmation into the thread. You may use the [
+Receipt Template ](/docs/messenger-platform/send-api-reference/receipt-
 template) to send a receipt.
 
     
@@ -560,16 +558,16 @@ template) to send a receipt.
     </script>      
     
 
-#### Params
+####  Params
 
-Param |  Description |  Type |  Required  
+Param  |  Description  |  Type  |  Required  
 ---|---|---|---  
   
 success callback
 
 |
 
-This function will be called if `requestAuthorizedPaymentCredentials` is
+This function will be called if ` requestAuthorizedPaymentCredentials ` is
 successful.
 
 |
@@ -608,9 +606,9 @@ Decimal
 
 Y  
   
-#### Result
+####  Result
 
-Field |  Description |  Type  
+Field  |  Description  |  Type  
 ---|---|---  
   
 payment credentials
@@ -623,12 +621,12 @@ Object containing payment credentials
 
 Object  
   
-#### Payment credentials fields
+####  Payment credentials fields
 
-Field |  Description |  Type  
+Field  |  Description  |  Type  
 ---|---|---  
   
-`token_card_number`
+` token_card_number `
 
 |
 
@@ -638,7 +636,7 @@ PGP-signed tokenized charge card
 
 String  
   
-`token_cvv`
+` token_cvv `
 
 |
 
@@ -648,7 +646,7 @@ PGP-signed CVV number
 
 String  
   
-`token_expiry`
+` token_expiry `
 
 |
 
@@ -658,12 +656,12 @@ Token Expiry
 
 Object  
   
-#### `token_expiry` fields
+####  ` token_expiry ` fields
 
-Field |  Description |  Type  
+Field  |  Description  |  Type  
 ---|---|---  
   
-`month`
+` month `
 
 |
 
@@ -673,7 +671,7 @@ Expiry month
 
 Number  
   
-`year`
+` year `
 
 |
 
@@ -683,10 +681,10 @@ Expiry year
 
 Number  
   
-You can learn how to decrypt the data by following the [detailed decrypting
-guide here](/docs/messenger-platform/payments-reference#decrypting).
+You can learn how to decrypt the data by following the [ detailed decrypting
+guide here ](/docs/messenger-platform/payments-reference#decrypting) .
 
-## Process Payment
+##  Process Payment
 
 If you're using Stripe or Paypal, you must use this method to process their
 payment. When the person completes the transaction on your page (e.g., taps a
@@ -696,11 +694,11 @@ provider and send you the transaction ID.
 If the payment is a test payment, we will not charge the card but will send a
 result with dummy fb_payment_id/external_transaction_id to you. Please note if
 your page has not being accepted to beta program, testing mode is not
-available. You can test `requestAuthorizedPaymentCredentials` instead. Refers
-to [How to Test Payment](/docs/messenger-platform/complete-
+available. You can test ` requestAuthorizedPaymentCredentials ` instead.
+Refers to [ How to Test Payment ](/docs/messenger-platform/complete-
 guide/payments#test_payments) for details.
 
-You must call `requestPaymentCredentials` before calling this method.
+You must call ` requestPaymentCredentials ` before calling this method.
 
     
     
@@ -714,16 +712,16 @@ You must call `requestPaymentCredentials` before calling this method.
     </script>      
     
 
-#### Params
+####  Params
 
-Param |  Description |  Type |  Required  
+Param  |  Description  |  Type  |  Required  
 ---|---|---|---  
   
 success callback
 
 |
 
-This function will be called if `processPayment` is successful.
+This function will be called if ` processPayment ` is successful.
 
 |
 
@@ -761,12 +759,12 @@ Decimal
 
 Y  
   
-#### Result
+####  Result
 
-Field |  Description |  Type  
+Field  |  Description  |  Type  
 ---|---|---  
   
-`result.payment_result`
+` result.payment_result `
 
 |
 
@@ -776,12 +774,12 @@ PGP-signed transaction details
 
 String  
   
-#### Decrypted Payment Result
+####  Decrypted Payment Result
 
-Field |  Description |  Type  
+Field  |  Description  |  Type  
 ---|---|---  
   
-`name`
+` name `
 
 |
 
@@ -791,7 +789,7 @@ Person name
 
 String  
   
-`amount`
+` amount `
 
 |
 
@@ -801,7 +799,7 @@ Amount of transaction
 
 Number  
   
-`timestamp`
+` timestamp `
 
 |
 
@@ -811,7 +809,7 @@ Epoch timestamp
 
 Number  
   
-`external_transaction_id`
+` external_transaction_id `
 
 |
 
@@ -822,7 +820,7 @@ be test_charge_id_12345.
 
 String  
   
-`fb_payment_id`
+` fb_payment_id `
 
 |
 
@@ -833,7 +831,7 @@ test_payment_id_12345.
 
 String  
   
-`provider`
+` provider `
 
 |
 
@@ -843,20 +841,20 @@ Facebook payment provider ID
 
 String  
   
-You can learn how to decrypt the data by following the [detailed decrypting
-guide here](/docs/messenger-platform/payments-reference#decrypting).
+You can learn how to decrypt the data by following the [ detailed decrypting
+guide here ](/docs/messenger-platform/payments-reference#decrypting) .
 
-__
+_ _
 
-__
+_ _
 
 &lt;img height="1" width="1" alt="" style="display:none"
 src="https://www.facebook.com/tr?id=675141479195042&amp;amp;ev=PixelInitialized"
-/&gt;&lt;img height="1" width="1" alt="" style="display:none"
+/&gt; &lt;img height="1" width="1" alt="" style="display:none"
 src="https://www.facebook.com/tr?id=574561515946252&amp;amp;ev=PixelInitialized"
-/&gt;&lt;img height="1" width="1" alt="" style="display:none"
+/&gt; &lt;img height="1" width="1" alt="" style="display:none"
 src="https://www.facebook.com/tr?id=1668333663438923&amp;amp;ev=PixelInitialized"
-/&gt;&lt;img height="1" width="1" alt="" style="display:none"
+/&gt; &lt;img height="1" width="1" alt="" style="display:none"
 src="https://www.facebook.com/tr?id=1754628768090156&amp;amp;ev=PixelInitialized"
 /&gt;
 

@@ -4,8 +4,10 @@
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from os import path as ospath, makedirs
+from os import path as ospath, makedirs, getenv
 from html2text import html2text
+from queue import Queue
+import posixpath
 
 
 BASE_URL = 'https://developers.facebook.com/docs/'
@@ -14,17 +16,55 @@ FB_DOC_ROOTS = [
     'messenger-platform',
 ]
 
-PHANTOM_PATH = '/home/remy/.nvm/versions/node/v5.11.1/bin/phantomjs'
+PHANTOM_JS_PATH = getenv('PHANTOM_JS_PATH', 'phantomjs')
+
+
+def drop_prefix(string: str, prefix: str) -> str:
+    """
+    Drop the prefix before the string if the strings begins with that prefix.
+
+    :param string: String to be trimmed
+    :param prefix: Prefix to look for
+    :return: The string, trimmed if necessary
+    """
+
+    if string.startswith(prefix):
+        return string[len(prefix):]
+    return string
+
+
+def clean_url(url: str, base: str) -> str:
+    """
+    Clean a URL: given the specified base, transform the URL into a relative URL and drop the
+    anchor.
+
+    :param url: URL to make relative
+    :param base: Base URL to consider
+    :return:
+    """
+
+    url = urljoin(base, url).split('#')[0]
+    if url.startswith(base):
+        return drop_prefix(url, base).lstrip('/'), True
+    else:
+        return url, False
 
 
 class DocFetcher(object):
     def __init__(self, doc_root):
-        self.driver = webdriver.PhantomJS(PHANTOM_PATH)
+        self.driver = webdriver.PhantomJS(PHANTOM_JS_PATH)
         self.driver.set_window_size(1600, 900)
         self.doc_root = doc_root
+        self.queue = Queue()
+        self.seen = set()
 
     def _exec(self, *args, **kwargs):
         return self.driver.execute_script(*args, **kwargs)
+
+    def _enqueue(self, topic):
+        if topic not in self.seen:
+            self.seen.add(topic)
+            self.queue.put(topic)
 
     def fetch_component(self, component):
         full_url = urljoin(BASE_URL, component)
@@ -65,22 +105,41 @@ class DocFetcher(object):
         out.append('')
         return '\n'.join(out)
 
-    def fetch_topic(self, component, topic):
+    def fetch_topic(self, topic):
         def cleanup():
-            self._exec('''
-                document.querySelector('#developer_documentation_toolbar').remove();
-                document.querySelector('.fb_iframe_widget').remove();
-            ''')
+            self._exec('''(function() {
+                function drop(selector) {
+                    var el = document.querySelector(selector);
+                    if (el) {
+                        el.remove();
+                    }
+                }
 
-        url = urljoin(BASE_URL, '{component}/{topic}'.format(
-            component=component,
-            topic=topic,
-        ))
+                drop('#developer_documentation_toolbar');
+                drop('.fb_iframe_widget');
+                drop('img[width="1"]');
+            }())''')
+
+        url = urljoin(BASE_URL, topic)
         self.driver.get(url)
         cleanup()
-        return self.driver.execute_script(
+        src = self.driver.execute_script(
             '''return document.querySelector('#documentation_body_pagelet').innerHTML;'''
         )
+        soup = BeautifulSoup(src, 'html.parser')
+
+        links = soup.find_all('a')
+        for link in links:
+            try:
+                link_url, is_rel = clean_url(link['href'], url)
+
+                if is_rel and link_url:
+                    link['href'] = link_url
+                    self._enqueue(posixpath.join(topic, link_url))
+            except KeyError:
+                pass
+
+        return soup.prettify()
 
     def render_topic(self, topic_src):
         return html2text(topic_src)
@@ -90,9 +149,13 @@ class DocFetcher(object):
         self._save(self.render_component(title, links), component)
 
         for topic, title in links:
+            self.queue.put(component + '/' + topic)
+
+        while not self.queue.empty():
+            topic = self.queue.get()
             print('---> {}'.format(topic))
-            src = self.fetch_topic(component, topic)
-            self._save(self.render_topic(src), component, topic)
+            src = self.fetch_topic(topic)
+            self._save(self.render_topic(src), topic)
 
     def _save(self, content, *args):
         path = ospath.join(self.doc_root, *(args + ('README.md',)))

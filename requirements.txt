@@ -5,9 +5,20 @@
 #    pip-compile --output-file requirements.txt requirements.in
 #
 beautifulsoup4==4.5.1
-click==6.6                # via pip-tools
+click==6.6                # via flask, pip-tools
+docopt==0.6.2             # via grip
 first==2.0.1              # via pip-tools
+Flask==0.11.1             # via grip
+grip==4.3.2
 html2text==2016.9.19
+itsdangerous==0.24        # via flask
+Jinja2==2.8               # via flask
+Markdown==2.6.7           # via grip
+MarkupSafe==0.23          # via jinja2
+path-and-address==2.0.1   # via grip
 pip-tools==1.8.0
+Pygments==2.1.3           # via grip
+requests==2.12.4          # via grip
 selenium==3.0.2
 six==1.10.0               # via pip-tools
+Werkzeug==0.11.11         # via flask

@@ -1,80 +1,80 @@
-# User Profile API
+#  User Profile API
 
 The profile API can be used to query more information about the user, and
 personalize the experience further. This API is only available after the user
-initiated the conversation by sending a message or by interacting with a [Web
-Plugin](/docs/messenger-platform/plugin-reference).
+initiated the conversation by sending a message or by interacting with a [ Web
+Plugin ](/docs/messenger-platform/plugin-reference) .
 
 If the conversation was initiated by using a phone number (customer
 matching]), you will only be able to use this API after the user replied to
 your message.
 
-## Request
+##  Request
 
-In order to use the User Profile API, make a `GET` call to
-`https://graph.facebook.com/v2.6/<USER_ID>?access_token=PAGE_ACCESS_TOKEN`.
+In order to use the User Profile API, make a ` GET ` call to `
+https://graph.facebook.com/v2.6/<USER_ID>?access_token=PAGE_ACCESS_TOKEN ` .
 
-### Example
+###  Example
 
     
     
     curl -X GET "https://graph.facebook.com/v2.6/<USER_ID>?fields=first_name,last_name,profile_pic,locale,timezone,gender&access_token=PAGE_ACCESS_TOKEN"    
 
-### Fields
+###  Fields
 
-Field Name |  Description  
+Field Name  |  Description  
 ---|---  
   
-`first_name`
+` first_name `
 
 |
 
 First name  
   
-`last_name`
+` last_name `
 
 |
 
 Last name  
   
-`profile_pic`
+` profile_pic `
 
 |
 
 Profile picture  
   
-`locale`
+` locale `
 
 |
 
 Locale of the user on Facebook  
   
-`timezone`
+` timezone `
 
 |
 
 Timezone, number relative to GMT  
   
-`gender`
+` gender `
 
 |
 
 Gender  
   
-`is_payment_enabled`
+` is_payment_enabled `
 
 |
 
 Is the user eligible to receive messenger platform payment messages  
   
-__
+_ _
 
-## Response
+##  Response
 
 A successful User Profile API request returns a json string with the requested
 details about the user.
 
-### Example
+###  Example
 
     
     
@@ -97,17 +97,17 @@ Facebook.
     
     {}
 
-__
+_ _
 
-__
+_ _
 
 &lt;img height="1" width="1" alt="" style="display:none"
 src="https://www.facebook.com/tr?id=675141479195042&amp;amp;ev=PixelInitialized"
-/&gt;&lt;img height="1" width="1" alt="" style="display:none"
+/&gt; &lt;img height="1" width="1" alt="" style="display:none"
 src="https://www.facebook.com/tr?id=574561515946252&amp;amp;ev=PixelInitialized"
-/&gt;&lt;img height="1" width="1" alt="" style="display:none"
+/&gt; &lt;img height="1" width="1" alt="" style="display:none"
 src="https://www.facebook.com/tr?id=1668333663438923&amp;amp;ev=PixelInitialized"
-/&gt;&lt;img height="1" width="1" alt="" style="display:none"
+/&gt; &lt;img height="1" width="1" alt="" style="display:none"
 src="https://www.facebook.com/tr?id=1754628768090156&amp;amp;ev=PixelInitialized"
 /&gt;
 
